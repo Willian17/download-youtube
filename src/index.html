@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Baixar video</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #536976, #292e49);
+            color: #fff;
+            font-family: sans-serif;
+        }
+
+
+        .app {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .app h1 {
+            font-size: 40px;
+        }
+
+        .app .form {
+            /* border: 1px solid red; */
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .app .form #input-link {
+            height: 40px;
+            width: 30%;
+            margin-bottom: 30px;
+            border: 5px solid #FF101F;
+        }
+
+        .button {
+            width: 41%;
+            height: 40px;
+            border-radius: 5px;
+            font-size: 15px;
+            border: none;
+            background: #fd151b;
+            color: #fff;
+        }
+
+        .button:hover {
+            background: rgb(221, 10, 24);
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <h1>Baixar Video do <span style="color: #FF101F;">YouTube</span> </h1>
+        <form onsubmit="requestDownload(event)" class="form">
+            <input type="url" name="link" id="input-link" placeholder="Cole o link do vídeo aqui" required>
+            <input type="checkbox" id="isPlaylist">
+            <label for="isPlaylist">Playlist</label><br>
+            <button type="submit" class="button">Baixar</button>
+        </form>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const baseApiUrl = 'http://localhost:3333'
+
+        async function requestDownload(event) {
+            event.preventDefault()
+            const linkVideo = document.getElementById('input-link').value
+            const isPlaylist = document.getElementById('isPlaylist').checked
+            await axios.post(`${baseApiUrl}/download`, { linkVideo, isPlaylist })
+        }
+
+    </script>
+</body>
+
+</html>
